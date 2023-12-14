@@ -1,3 +1,9 @@
+'''2.A) Write Python program to store roll numbers of student in array who attended training
+program in random order. Write function for searching whether particular student attended
+training program or not, using linear search and sentinel search.
+B) Write Python program to store roll numbers of student array who attended training program
+in sorted order. Write function for searching whether particular student attended training
+program or not, using binary search and Fibonacci search.'''
 def linearSearch(l,n,k):
     for i in range(n):
         if (l[i]==k):
@@ -40,73 +46,49 @@ def fibSearch(arr,key,n):
     #Phase 1 : Generation of Fibonacci Series.
     fib2 = 0
     fib1 = 1
-    fibc = fib2+fib1
+    fibc = fib2+fib1 #fibc = 1
     
-    while(fibc<n):
+    while(fibc<n): #We are assigning value to fibc such that fibc >= number of elements (n)
         fib2 = fib1
         fib1 = fibc
         fibc = fib2 + fib1  
-    
-    offset = -1
+    #-------------------------------------------------------------------------------#
+    offset = -1 #Initailise offset to -1
     
     while(fibc>1):
-        i = min(offset+fib2, n-1)#required for deciding the index of value to be compared in array.
-        if(arr[i]<key):
+        i = min( offset+fib2 , n-1 )#required for deciding the index of value to be compared in array.
+        if(arr[i]<key):#if key is greater
             #Decrementing fibonacci sequence by step = 1
             #Note that offset is updated
             fibc = fib1
             fib1 = fib2
             fib2 = fibc - fib1
-            offset = i
+            offset = i #Updating offset
+            
         elif(arr[i]>key):
             #Decrementing fibonacci sequence by step = 2
             #Note that offset isn't updated
             fibc = fib2
             fib1 = fib1 - fib2
             fib2 = fibc - fib1    
+            
         else: #if arr[i] == key
             return i
-    if(fibc and arr[n-1] == key):
+    if(arr[n-1] == key):
         return (n-1)
     
     return -1
-
-# def fib(n):
-#     if(n==0):
-#         return 0
-#     if(n==1):
-#         return 1
-#     return fib(n-1)+fib(n-2)
     
-# def fibSearch(arr,mid,p,q,key):
-#     if(key==arr[mid-1]):
-#         return mid-1
-#     if(key>arr[mid-1]):
-#         if(p==1):
-#             return -1
-#         mid += q
-#         p -= q
-#         q -= p
-#         return fibSearch(arr,mid,p,q,key)
-#     else:
-#         if(q==0):
-#             return -1
-#         mid -= q
-#         temp = p-q
-#         p = q
-#         q = temp
-#         return fibSearch(arr,mid,p,q,key)
-    
-n = int(input("Number of Elements in Array = "))
+n = int(input("Number of Students = "))
 l = []
 for i in range(n):
-    l.append(int(input("Enter Element %d = "%(i+1))))
+    l.append(int(input("Enter Roll Number of Student %d = "%(i+1))))
 l = sort(l,n)
 print(l)
 ch =1
 while (ch==1):
     opt = int(input("\t\t\tMENU\n1)Linear Search.\n2)Sentinel Search.\n3)Binary Search.\n4)Fibonacci Search.\nYour Choice = "))
-    k = int(input("Key = "))
+    k = int(input("Enter Roll Number to be Searched = "))
     if(opt==1):
         result = linearSearch(l,n,k)
   
@@ -117,14 +99,9 @@ while (ch==1):
         result = binarySearch(l,0,n,k)
         
     elif(opt==4):
-        # for i in range(n+1):
-        #     c = fib(i)
-        # p = fib(i-2)
-        # q = fib(i-3)
-        # mid = n - p + 1
-        # result = fibSearch(l,mid,p,q,k)
         result = fibSearch(l,k,n)
-    if result != -1:
+        
+    if(result != -1):
         print("Element is present at index", result)
     else:
          print("Element is not present in array")

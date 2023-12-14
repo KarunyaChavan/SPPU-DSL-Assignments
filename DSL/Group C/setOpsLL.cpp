@@ -1,3 +1,10 @@
+/*Second year Computer Engineering class set A of students like Vanilla Ice-cream and set B of students like butterscotch ice-cream. Write C/C++ program to store two sets using linked list compute and display
+Set of students who like either vanilla or butterscotch or both
+Set of students who like both vanilla and butterscotch
+Set of students who like only vanilla not butterscotch
+Set of students who like only butterscotch not vanilla
+Number of students who like neither vanilla nor butterscotch
+*/
 #include "iostream"
 using namespace std;
 
@@ -41,6 +48,28 @@ class LinkedList{
         }
         cout<<"NULL"<<endl;
     }
+
+    int count(){
+        Node<T>* temp = head;
+        int c = 0;
+        while(temp!=NULL){
+            c++;
+            temp = temp->next;
+        }
+        return c;
+    }
+
+    void makeItUnique(){
+    Node<T>* current_node = head;
+    while(current_node){
+        while(current_node->next && current_node->val ==current_node->next->val){
+            Node<T>* temp = current_node->next;
+            current_node->next = current_node->next->next;
+            free(temp);
+        }
+        current_node = current_node->next;
+    }
+}
 };
 
 template<class T>
@@ -147,16 +176,17 @@ int main(){
 
     cout<<"_-_-_-_-_-_-_-_-_ DATA _-_-_-_-_-_-_-_-_"<<endl;
     cout<<"Total Students = ";
+    // total.makeItUnique();
     total.display();
     cout<<"\nStudents Liking Vanilla = ";
     vanilla.display();
     cout<<"\nStudents Liking Butterscotch = ";
     butterscotch.display();
-
+    int num;
     LinkedList<string> l1;
     int opt;
     do{
-        cout<<"\n1)Set of students who like both vanilla and butterscotch.\n2)Set of students who like either vanilla or butterscotch or not both.\n3) Number of students who like neither vanilla nor butterscotch.\n4)Exit.\n Choose Operation = ";
+        cout<<"\n1)Set of students who like both vanilla and butterscotch.\n2)Set of students who like either vanilla or butterscotch or not both.\n3)Number of students who like neither vanilla nor butterscotch.\n4)Exit.\n Choose Operation = ";
         cin>>opt;
         switch (opt)
         {
@@ -168,13 +198,18 @@ int main(){
         case 2:
             l1.head = difference(uni(vanilla.head, butterscotch.head),intersection(vanilla.head, butterscotch.head));
             l1.display();
+            break;
 
         case 3:
             l1.head = difference(total.head, uni(vanilla.head, butterscotch.head));
             l1.display();
+            num = l1.count();
+            cout<<num<<endl;
             break;
         case 4:
             break;
+        default:
+            cout<<"Invalid Option"<<endl;
         }
     }while(opt!=4);
     return 0;

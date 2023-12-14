@@ -1,3 +1,14 @@
+#GROUP A - Assignment 3											
+'''In Second year Computer Engineering class of M students, set A of students play cricket and set B
+of students play badminton. Write python program to find and display-
+A. Set of students who play either cricket or badminton or both
+B. Set of students who play both cricket and badminton
+C. Set of students who play only cricket
+D. Set of students who play only badminton
+E. Number of students who play neither cricket nor badminton'''
+# 1,2,3,2,5,2
+# 1,2,2,2,3,5
+# 1,2,3,5
 def unique(l,n):
 	#Bubble Sort method of sorting list
 	for i in range((n-1)):
@@ -10,10 +21,10 @@ def unique(l,n):
 	ul = []
 	size = 0
 	for i in range(n-1):
-		if l[i] != l[i+1]:
+		if (l[i] != l[i+1]):
 			ul.append(l[i])
 			size += 1
-	ul.append(l[n-1])
+	ul.append(l[n-1])#Inserting last element
 	size += 1
 	return ul,size
 

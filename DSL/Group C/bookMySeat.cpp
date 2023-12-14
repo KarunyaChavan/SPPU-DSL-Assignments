@@ -1,10 +1,16 @@
+/*The ticket booking system of Cinemax theater has to be implemented using C++ program. There are 10 rows and 7 seats in each row. Doubly circular linked list has to be maintained to keep track of free seats at rows. Assume some random booking to start with. Use array to store pointers (Head pointer) to each row On demand
+The list of available seats is to be displayed
+The seats are to be booked
+The booking can be cancelled
+*/
+
 #include "iostream"
 using namespace std;
 
 //Phase 1 :- Creation of nodes, (seats)
 class seat{
     public:
-        int num, status;
+        int num, status;//if status is 0 -> empty, else status = 1 -> booked
         string id;
         seat* prev;
         seat* next;
@@ -36,6 +42,7 @@ class Theatre{
                 s->num = i;
                 s->id = "NULL";
                 s->status = 0;
+
                 //appending new node to list
                 tail->next = s;
                 s->prev = tail;
@@ -57,7 +64,7 @@ class Theatre{
             //Phase 2.2.2 : Displaying Real Time seats status
             do{
                 //Case 1 :  If seat number lies between 1 to 10.
-                if(temp->num/10==0){ //Every number less 10 will have quotient 0.something when division is performed.
+                if(temp->num/10==0){ //Every number less 10 will have (quotient 0.something) when division is performed.
                     cout<<"S0"<<temp->num<<" : ";
                     //For n<10 we are sticking 0 to S in order to maintain uniformity.
                 }
@@ -81,7 +88,7 @@ class Theatre{
                     cout<<endl;
                     r++;
                 }
-                temp=temp->next;
+                temp=temp->next;//loop updating condition
             }while(temp!=head);
         }
 
@@ -99,7 +106,7 @@ class Theatre{
             else{
                 temp->status = 1; 
                 temp->id = v;
-                cout<<"Seat "<<temp->num<<" booked sucessfully"<<endl;
+                cout<<"Seat "<<temp->num<<" booked sucessfully for ID : "<<temp->id<<endl;
             }
         }
 
@@ -110,13 +117,13 @@ class Theatre{
                 temp = temp -> next;
             }
             if(temp->id == v){
-            if(temp->status==0){
-                cout<<"Seat not booked yet"<<endl;
-            }
-            else{
-                temp->status = 0;
-                cout<<"Seat Cancelled."<<endl;
-            }
+                if(temp->status==0){
+                    cout<<"Seat not booked yet"<<endl;
+                }
+                else{
+                    temp->status = 0;
+                    cout<<"Seat Cancelled."<<endl;
+                }
             }
             else{
                 cout<<"Wrong User ID"<<endl;

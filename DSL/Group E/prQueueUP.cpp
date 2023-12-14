@@ -7,10 +7,11 @@ using namespace std;
 template<class T>
 class Data{ //will be used as data type of queue
 	public:
-		T val;
-		int priority;
-		bool operator <= (int v){
-			if(v<=priority){
+		T val;//Value Compartment
+		int priority;//Priority Compartment
+
+		bool operator <= (Data<T> D){//For comparison while enqueueing
+			if((this->priority)<=D.priority){// D1 <= D2 
 				return true;
 			}
 			else return false;
@@ -19,33 +20,39 @@ class Data{ //will be used as data type of queue
 
 template<class T>
 class prQueue{
-		int front=-1,rear=-1;
-		Data<T> queue[MAX];
+		int front=-1,rear=-1;//Like linear queue
+		Data<T> queue[MAX]; //Array of Objects of type Data 
 	public:
+
 		void enqueue(T d, int priority){
-			Data<T> D;
+			Data<T> D;//Creation of Object for storing data which is to be enqueued
 			if(rear==MAX-1){
 				cout<<"OVERFLOW"<<endl;
 				return;
 			}
-			else if(front==-1 && rear==-1){
+			else if(front==-1 && rear==-1){//Empty Queue condition
 				front = rear = 0;
+				//Setting values to the properties of object data
 				D.val = d;
 				D.priority = priority;
-				queue[rear] = D;
+
+				queue[rear] = D;//Putting object D into Queue
 				return;
 			}
 			else{
+
 				D.val = d;
 				D.priority = priority;
+
                 int i =rear;
 				for(i=rear;i>=front;i--){
-					if(priority <= ((queue[i]).priority)){
-						queue[i+1] = queue[i];
+					if(D <= (queue[i])){
+						queue[i+1] = queue[i];//pushing objects
 					}
                     else break;
                 }
 				queue[i+1] = D;
+
 				rear++;
 				return;
 			}
@@ -57,11 +64,13 @@ class prQueue{
 			}
 			else{
 				Data<T> gar;
-				if(front==rear){
-					gar = queue[front];
+
+				if(front==rear){//single element condition
+					gar = queue[front];//storing object at front
 					front = rear = -1;
-					return gar;;
+					return gar;
 				}
+
 				else{
 					gar = queue[front];
 					front++;
@@ -77,6 +86,7 @@ class prQueue{
 			}
             else{
                 cout<<(queue[front]).val<<" with priority "<<(queue[front]).priority<<" is next one "<<endl;
+				//(queue[front]).val == D.val , similarly queue[front].priority = D.priority
                 return; 
             }
         }
@@ -89,6 +99,8 @@ class prQueue{
 			else{
 				for(int i=front;i<=rear;i++){
 					cout<<"  "<<(queue[i]).val<<"                    "<<(queue[i]).priority<<endl;
+					// Data D;
+					// (queue[i]).val == D.val
 				}
 			}
 		}
@@ -98,7 +110,7 @@ int main(){
 	prQueue<char> p;
     int opt,pr;
 	char val;
-    Data<char> G;
+    Data<char> G;//for storing the dequeued object
     do{
         cout<<"\5_-_-_-_-_-_-_-_-_-_ MENU _-_-_-_-_-_-_-_-_-_\5\n1)Enqueue.\n2)Dequeue.\n3)Display.\n4)Peek.\n5)EXIT.\n : ";
         cin>>opt;

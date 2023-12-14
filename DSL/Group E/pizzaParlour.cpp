@@ -1,40 +1,51 @@
+/*Pizza parlor accepting maximum M orders. Orders are served in first come first served basis. Order once placed cannot be cancelled. Write C++ program to simulate the system using circular queue using array. */
+
 #include"iostream"
 using namespace std;
-#define MAX 5
+#define MAX 3
 string menu[5] = {"Cheese", "Veggie", "Pepperoni", "Margherita", "Hawaiian"};
 
 class CircularQueue{
         int front = -1, rear = -1;
         int queue[MAX];
     public:
+
         void enqueue_order(int val){
-            if(front==0 && rear==MAX-1){
-                cout<<"Sorry, we are out of stock"<<endl;
+            if((front==0 && rear==MAX-1)||(rear==front-1)){
+                cout<<"Sorry, we are out of stock"<<endl;//Overflow
                 return;
             }
-            else if(front==-1 && rear==-1){
+            else if(front==-1 && rear==-1){//Empty Queue Condition
                 front = rear = 0;
                 queue[rear] = val;
             }
-            else{
-                rear++;
-                queue[rear] = val;
-            }
+            else if(front!=0 && rear==MAX-1){//Circular queue condition
+                    rear = 0;//Joiining rear to the start
+                    queue[rear] = val;
+                }
+            else{//Normal Condition
+                    rear++;
+                    queue[rear] = val;
+                }
         }
 
         int dequeue_order(){
-            if(front==-1 && rear==-1){
-                cout<<"All pizzas has been delivered"<<endl;
+            int val;
+            if(front==-1 && rear==-1){//Underflow
+                cout<<"All pizzas has been delivered"<<endl;//Underflow
                 return -1;
             }
-            int val = queue[front];
-            if(front==rear){
+            val = queue[front];
+
+            if(front==rear){//Only one element was present in the queue
                 front=rear=-1;
-            }else{
-                if(front==MAX-1){
-                    front = 0;
-                }else{
-                    front++;
+            }
+            else{
+                if(front==MAX-1){//Circular Condition
+                    front = 0;//Joining front to the start
+                }
+                else{
+                    front++;//Normal (In-Between) Condition
                 }
             }
             return val;
@@ -51,21 +62,25 @@ class CircularQueue{
         }
 
         void display(){
-            if(front==-1 || rear==-1){
+            if(front==-1 && rear==-1){
                 cout<<"QUEUE IS EMPTY"<<endl;
-            }else{
-                if(front<rear){
+            }
+            else{
+                if(front<rear){//Normal Condition - Linear Queue Wali
                     for(int i=front;i<=rear;i++){
                             cout<<menu[queue[i]-1]<<" -> ";
                     }cout<<endl;
                 }
-                else if(front==rear){
+
+                else if(front==rear){//Single element prsence only
                         cout<<menu[(queue[front])-1]<<endl;
                 }
-                else{
-                    for(int i=front;i<MAX;i++)
+
+                else{//front > rear
+                    for(int i=front;i<MAX;i++)//from front to max - 1 //Part P1
                         cout<<menu[(queue[i])-1]<<" -> ";
-                    for(int i=0;i<=rear;i++)
+
+                    for(int i=0;i<=rear;i++)//from 0 to rear //Part P2
                         cout<<menu[(queue[i])-1]<<" -> ";
                 }
                 cout<<endl;
@@ -99,12 +114,16 @@ int main(){
 
             case 4:
                 val = kitchen.dequeue_order();
-                cout<<menu[val-1]<<" Pizza - Order has been Delivered"<<endl;
+                if(val!=-1)
+                    cout<<menu[val-1]<<" Pizza - Order has been Delivered"<<endl;
+                break;
+
+            case 5:
                 break;
 
             default:
                 cout<<"Invalid Option"<<endl;
         }
-    }while(opt!=6);
+    }while(opt!=5);
     return 0;
 }

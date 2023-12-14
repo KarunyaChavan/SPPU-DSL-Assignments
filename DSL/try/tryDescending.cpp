@@ -9,7 +9,7 @@ class Data{ //will be used as data type of queue
 	public:
 		T val;
 		int priority;
-		bool operator <= (int v){
+		bool operator >= (int v){
 			if(v<=priority){
 				return true;
 			}
@@ -40,7 +40,7 @@ class prQueue{
 				D.priority = priority;
                 int i =rear;
 				for(i=rear;i>=front;i--){
-					if(priority <= ((queue[i]).priority)){
+					if(priority >= ((queue[i]).priority)){
 						queue[i+1] = queue[i];
 					}
                     else break;

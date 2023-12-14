@@ -1,3 +1,9 @@
+'''Write python program for to compute the following computation on matrix
+A. Addition of two matrices
+B. Subtraction of two matrices
+C. Multiplication of two
+D. Transpose of matrix'''
+
 #_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ MATRIX MANIPULATION _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ 
 
 #Defining a funtion to print the given matrix in a specified manner,
@@ -125,4 +131,3 @@ while(ch==1):
 		print("Kindly choose among the given option. ") #If by mistake user selects unspecified option
 	
 	ch = int(input("Do you want to continue ?\n1)Yes\n2)No\nYour Response = ")) #Updating value of choice variable to decide whether to continue or exit operations
-			

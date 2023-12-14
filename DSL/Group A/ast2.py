@@ -1,3 +1,10 @@
+'''Write Python program to store marks scored for first test of subject ‘Data Structures and
+Algorithms&#39; for N students. Compute
+A. The average score of class
+B. Highest score and lowest score of class
+C. Marks scored by most of the students
+D. list of students who were absent for the test'''
+
 #_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ MARKS ANALYSIS_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
 
 def avg(marks, N):
@@ -25,8 +32,7 @@ def maximaMin(marks, N):
             small = marks[i]
         elif (grt<marks[i]) and marks[i]!=-1:
             grt = marks[i]
-    print("Highest Score of class is %d\nLowest Score of class is %d"%(grt, small))
-    return grt
+    return grt,small
 
 #-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
 def absenty(marks, N):
@@ -49,10 +55,13 @@ def frequency(marks, N):
             fr.append(grt);
         else:
             fr.append(1)
-    print(fr)
-    a = maximaMin(fr,N)
+    #print(fr)
+    a,b = maximaMin(fr,N)
     k = fr.index(a)
-    print(f"{marks[k]} is appearing {a} times")
+    if(a==1):
+        print("All have Same Frequency")
+    else:
+        print(f"{marks[k]} is appearing {a} times")
             
 #-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-__-_-_-_-_-_-
 
@@ -80,11 +89,12 @@ while(ch==1):
         
 #-------------------------------------------------------------------------------------------------------------------
     elif (opt==2):		
-        maximaMin(marks, N)
+        grt,small = maximaMin(marks, N)
+        print("Highest Score of class is %d\nLowest Score of class is %d"%(grt, small))
         
 #------------------------------------------------------------------------------------------------------------------	
     elif(opt==3):
-        print(frequency(marks, N))
+        frequency(marks, N)
 
 #------------------------------------------------------------------------------------------------------------------	
     elif (opt==4): #Frequency
